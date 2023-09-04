@@ -11,7 +11,7 @@ include "config.php"
 </head>
 <body>
     <a href="nova_entrada.php"><input type="button" value="nova entrada"></a>
-    <a href="index.php"><input type="button" value="nova troca"></a>
+    <a href="nova_troca.php"><input type="button" value="nova troca"></a>
     <a href="alt_item.php"><input type="button" value="alterar item"></a><br><br>
 </body>
 </html>

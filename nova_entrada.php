@@ -11,7 +11,6 @@ include "index.php";
 </head>
 <body>
     <form action="nova_entrada.php" method="post" id="entrada">
-        <h2>nova entrada</h2><br>
         <input type="number" placeholder="número de entradas" name="count" required><br><br>
         <input type="text" placeholder="nome da carta" name="nome" required><br>
         <!-- <input type="number" placeholder="valor da venda" name="venda" step="any"><br> -->
