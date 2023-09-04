@@ -9,12 +9,13 @@ include "config.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body> 
+<body>
+    <a href="index.php"><input type="button" value="voltar"></a><br><br>
     <form action="alt_item.php" method="post" id="view">
         <input type="number" placeholder="id" name="id">
-        <input type="text" placeholder="nome" name="nome">
+        <input type="text" placeholder="nome" name="nome"><br>
         <input type="number" placeholder="valor de venda" name="venda">
-        <input type="number" placeholder="valor de compra" name="compra">
+        <input type="number" placeholder="valor de compra" name="compra"><br>
         <select name="status" form="view">
             <option></option>
             <option value="encomenda">Encomenda</option>
@@ -22,7 +23,7 @@ include "config.php";
             <option value="anúncio">Anúncio</option>
             <option value="vendido">Vendido</option>
         </select>
-        <input type="submit" value="pesquisar" name="submit">
+        <input type="submit" value="pesquisar" name="submit"><br><br>
     </form>
 </body>
 </html>
@@ -100,6 +101,7 @@ $echo = $teste->fetchAll(PDO::FETCH_ASSOC);
 
 
 foreach ($echo as $linha) {
+
     foreach ($linha as $coluna => $valor){
 
         if(!isset($valor)) { continue; }

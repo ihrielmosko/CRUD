@@ -10,6 +10,7 @@ include "config.php";
     <title>SteamDeck</title>
 </head>
 <body>
+    <a href="index.php"><input type="button" value="voltar"></a><br>
     <form action="nova_entrada.php" method="post" id="entrada">
         <h2>nova entrada</h2><br>
         <input type="number" placeholder="número de entradas" name="count" required><br><br>
@@ -26,9 +27,7 @@ include "config.php";
         <input type="date" name="cd">
         <input type="checkbox" name="ncd">sem cooldown</input> <br>
         <input type="submit" name="submit">
-    </form><br>
-
-    <a href="index.php"><input type="button" value="voltar"></a>
+    </form>
 </body>
 </html>
 
