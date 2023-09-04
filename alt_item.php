@@ -36,70 +36,75 @@ include "config.php";
 
 <?php
 
-
-if(isset($_POST['submit']))
-{
+$prepare = 'SELECT * FROM `cartas`';
 
 
-    $prepare = 'SELECT * FROM `cartas`';
+$conditions = [];
 
 
-    $conditions = [];
+if(!empty($_POST['id'])) {
+    $conditions[] = '`id_cartas` = :id';
+}
+
+if(!empty($_POST['nome'])) {
+    $conditions[] = '`nome` = :nome';
+}
+
+if(!empty($_POST['venda'])) {
+    $conditions[] = '`venda` = :venda';
+}
+
+if(!empty($_POST['compra'])) {
+    $conditions[] = '`compra` = :compra';
+}
+
+if(!empty($_POST['compra'])) {
+    $conditions[] = '`compra` = :compra';
+}
+
+if(!empty($_POST['status'])) {
+    $conditions[] = '`status` = :status';
+}
+
+if(!empty($conditions)) {
+    $prepare .= ' WHERE ' . implode(' AND ', $conditions);
+}
 
 
-    if(!empty($_POST['id'])) {
-        $conditions[] = '`id_cartas` = :id';
+$teste = $conn->prepare($prepare);
+
+
+if(!empty($_POST['id'])) {
+    $teste->bindValue(':id', $_POST['id']);
+}
+
+if(!empty($_POST['nome'])) {
+    $teste->bindValue(':nome', $_POST['nome']);
+}
+
+if(!empty($_POST['venda'])) {
+    $teste->bindValue(':venda', $_POST['venda']);
+}
+
+if(!empty($_POST['compra'])) {
+    $teste->bindValue(':compra', $_POST['compra']);
+}
+
+if(!empty($_POST['status'])) {
+    $teste->bindValue(':status', $_POST['status']);
+}
+
+$teste->execute();
+
+$echo = $teste->fetchAll(PDO::FETCH_ASSOC);
+
+
+foreach ($echo as $linha) {
+    foreach ($linha as $coluna => $valor){
+
+        if(!isset($valor)) { continue; }
+
+            echo $coluna . " -- " . $valor . "<br>";
     }
-
-    if(!empty($_POST['nome'])) {
-        $conditions[] = '`nome` = :nome';
-    }
-
-    if(!empty($_POST['venda'])) {
-        $conditions[] = '`venda` = :venda';
-    }
-
-    if(!empty($_POST['compra'])) {
-        $conditions[] = '`compra` = :compra';
-    }
-
-
-    if(!empty($conditions)) {
-        $prepare .= ' WHERE ' . implode(' AND ', $conditions);
-    }
-
-
-    $teste = $conn->prepare($prepare);
-
-
-    if(!empty($_POST['id'])) {
-        $teste->bindValue(':id', $_POST['id']);
-    }
-
-    if(!empty($_POST['nome'])) {
-        $teste->bindValue(':nome', $_POST['nome']);
-    }
-
-    if(!empty($_POST['venda'])) {
-        $teste->bindValue(':venda', $_POST['venda']);
-    }
-
-    if(!empty($_POST['compra'])) {
-        $teste->bindValue(':compra', $_POST['compra']);
-    }
-
-    $teste->execute();
-
-    $echo = $teste->fetchAll(PDO::FETCH_ASSOC);
-
-
-    foreach ($echo as $linha) {
-        foreach ($linha as $coluna => $valor){
-
-            if(!isset($valor)) { $valor = null; }
-
-                echo $coluna . " -- " . $valor . "<br>";
-        }
-        echo "<br>";
-    }
+    echo "<br>";
 }
