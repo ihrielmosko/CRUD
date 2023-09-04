@@ -1,5 +1,5 @@
 <?php
-include "config.php";
+include "index.php";
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +10,6 @@ include "config.php";
     <title>SteamDeck</title>
 </head>
 <body>
-    <a href="index.php"><input type="button" value="voltar"></a><br>
     <form action="nova_entrada.php" method="post" id="entrada">
         <h2>nova entrada</h2><br>
         <input type="number" placeholder="número de entradas" name="count" required><br><br>
@@ -62,9 +61,3 @@ if(isset($_POST['submit'])){
     }
 }
 ?>
-
-<!-- dividir entre
-nova entrada (encomenda, carta ganha de jogo)
-alterar entrada (carta comprada, anunciada, vendida)
-esta ultima vai alterar um determinado numero de entradas pesquisando por nome e preço, filtrando automaticamente
-antes disso acessar uma tela com um botão nova entrada, alterar entrada (anúncio, encomenda, venda) e talvez um botão de estatísticas-->

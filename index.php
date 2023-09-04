@@ -1,3 +1,7 @@
+<?php
+include "config.php"
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,8 +10,8 @@
     <title>SteamDeck</title>
 </head>
 <body>
-    <a href="nova_entrada.php"><input type="button" value="nova entrada"></a><br><br>
-    <a href="index.php"><input type="button" value="nova troca"></a><br><br>
+    <a href="nova_entrada.php"><input type="button" value="nova entrada"></a>
+    <a href="index.php"><input type="button" value="nova troca"></a>
     <a href="alt_item.php"><input type="button" value="alterar item"></a><br><br>
 </body>
 </html>

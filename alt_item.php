@@ -1,5 +1,5 @@
 <?php
-include "config.php";
+include "index.php";
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +10,6 @@ include "config.php";
     <title>Document</title>
 </head>
 <body>
-    <a href="index.php"><input type="button" value="voltar"></a><br><br>
     <form action="alt_item.php" method="post" id="view">
         <input type="number" placeholder="id" name="id">
         <input type="text" placeholder="nome" name="nome"><br>
