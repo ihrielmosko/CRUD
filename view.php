@@ -14,8 +14,8 @@ include "index.php";
     <form action="view.php" method="post" id="view">
         <input type="number" placeholder="id" name="id">
         <input type="text" placeholder="nome" name="nome">
-        <input type="number" placeholder="valor de venda" name="venda">
-        <input type="number" placeholder="valor de compra" name="compra">
+        <input type="number" placeholder="valor de venda" name="venda" step="any">
+        <input type="number" placeholder="valor de compra" name="compra" step="any">
         <select name="status" form="view">
             <option></option>
             <option value="encomenda">Encomenda</option>
@@ -50,15 +50,11 @@ if(!empty($_POST['nome'])) {
 }
 
 if(!empty($_POST['venda'])) {
-    $conditions[] = '`venda` = :venda';
+    $conditions[] = '`venda` LIKE :venda';
 }
 
 if(!empty($_POST['compra'])) {
-    $conditions[] = '`compra` = :compra';
-}
-
-if(!empty($_POST['compra'])) {
-    $conditions[] = '`compra` = :compra';
+    $conditions[] = '`compra` LIKE :compra';
 }
 
 if(!empty($_POST['status'])) {
@@ -95,6 +91,7 @@ if(!empty($_POST['status'])) {
 
 $teste->execute();
 
+
 $echo = $teste->fetchAll(PDO::FETCH_ASSOC);
 
 ?> 
@@ -113,14 +110,7 @@ $echo = $teste->fetchAll(PDO::FETCH_ASSOC);
         </tr>
 <?php
 
-// if (var_dump("teste") == "string") {
-//     echo "merda";
-// }
 
-
-$x = 1;
-
-if(is_int($x)) {echo "deu";}
 
 foreach ($echo as $linha) {
 
@@ -143,10 +133,17 @@ foreach ($echo as $linha) {
     }
 
     ?>
-        <td><a href="alt_item.php?x=2"><input type="button" value="editar"></td>
-        <td><input type="button" value="excluir"></td>
+        <td><a href="alt_item.php?x=<?php echo $linha_id; ?>&y=1"><input type="button" value="editar"></a></td>
+        <td><a href="alt_item.php?x=<?php echo $linha_id; ?>&y=0"><input type="button" value="excluir"></a></td>
     </tr>
     <?php
+}
+
+if(isset($_POST['submit'])) {
+
+    ?><script>
+    window.history.replaceState( null, null, window.location.href );
+    </script><?php
 }
 
  ?>

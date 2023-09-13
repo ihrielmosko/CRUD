@@ -54,6 +54,7 @@ if(isset($_POST['submit'])){
         $submit->bindValue(':nome', $nome);
         // $submit->bindValue(':venda', $venda);
         $submit->bindValue(':compra', $compra);
+        echo $compra;
         $submit->bindValue(':status', $status);
         $submit->bindValue(':cd', $cd);
         $submit->execute();
