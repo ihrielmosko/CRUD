@@ -48,6 +48,8 @@ if(isset($_POST['submit'])){
     if(isset($_POST['ncd'])) { $cd = NULL; }
     else { $cd = $_POST['cd']; }
 
+    $cd = isset($_POST['ncd']); 
+
     for ($i = 0; $i < $count; $i++) {
 
         $submit = $conn->prepare('INSERT INTO `cartas` (`id_cartas`, `nome`, `venda`, `compra`, `status`, `cooldown`, `trocado_por`) VALUES (NULL, :nome,/*:venda,*/ NULL, :compra, :status, :cd, NULL)');
@@ -60,4 +62,5 @@ if(isset($_POST['submit'])){
         $submit->execute();
     }
 }
+
 ?>

@@ -35,84 +35,51 @@ include "index.php";
 
 <?php
 
+//veja a "iteração dos filtros" no arquivos.md para se infomrar do funcionamento desse foreach e a idéia que o originou
+
+$filtros = ['id', 'nome', 'venda', 'compra', 'status'];
+
 $prepare = 'SELECT * FROM `cartas`';
 
+foreach ($filtros as $f)
+{
+    $operador = $f == 'venda' || $f == 'compra' ? 'LIKE' : '=';
 
-$conditions = [];
-
-
-if(!empty($_POST['id'])) {
-    $conditions[] = '`id_cartas` = :id';
+    if(!empty($_POST[$f])) {
+        $conditions[] = "`$f` $operador :$f"; // ex: "`venda` LIKE :venda";
+    }
 }
 
-if(!empty($_POST['nome'])) {
-    $conditions[] = '`nome` = :nome';
-}
-
-if(!empty($_POST['venda'])) {
-    $conditions[] = '`venda` LIKE :venda';
-}
-
-if(!empty($_POST['compra'])) {
-    $conditions[] = '`compra` LIKE :compra';
-}
-
-if(!empty($_POST['status'])) {
-    $conditions[] = '`status` = :status';
-}
-
-if(!empty($conditions)) {
+if(!empty($conditions))
+{
     $prepare .= ' WHERE ' . implode(' AND ', $conditions);
 }
 
+$consulta = $conn->prepare($prepare);
 
-$teste = $conn->prepare($prepare);
-
-
-if(!empty($_POST['id'])) {
-    $teste->bindValue(':id', $_POST['id']);
+foreach ($filtros as $f)
+{
+    if(!empty($_POST[$f])) {
+        $consulta->bindValue(":$f", $_POST[$f]);
+    }
 }
 
-if(!empty($_POST['nome'])) {
-    $teste->bindValue(':nome', $_POST['nome']);
-}
+$consulta->execute();
 
-if(!empty($_POST['venda'])) {
-    $teste->bindValue(':venda', $_POST['venda']);
-}
+$resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
-if(!empty($_POST['compra'])) {
-    $teste->bindValue(':compra', $_POST['compra']);
-}
-
-if(!empty($_POST['status'])) {
-    $teste->bindValue(':status', $_POST['status']);
-}
-
-$teste->execute();
-
-
-$echo = $teste->fetchAll(PDO::FETCH_ASSOC);
 
 ?> 
 <div class="container">
     <table border="1">
         <tr>
-            <th>id</th>
-            <th>nome</th>
-            <th>venda</th>
-            <th>compra</th>
-            <th>status</th>
-            <th>cooldown</th>
-            <th>trocado por</th>
-            <th>editar</th>
-            <th>excluir</th>
+            <th>id</th> <th>nome</th> <th>venda</th> <th>compra</th> <th>status</th>
+            <th>cooldown</th> <th>trocado por</th> <th>editar/excluir</th>
         </tr>
 <?php
 
 
-
-foreach ($echo as $linha) {
+foreach ($resultado as $linha) {
 
     $linha_id = 0
 
@@ -133,8 +100,7 @@ foreach ($echo as $linha) {
     }
 
     ?>
-        <td><a href="alt_item.php?x=<?php echo $linha_id; ?>&y=1"><input type="button" value="editar"></a></td>
-        <td><a href="alt_item.php?x=<?php echo $linha_id; ?>&y=0"><input type="button" value="excluir"></a></td>
+        <td><a href="alt_item.php?id=<?php echo $linha_id; ?>&alt=edit"><input type="button" value="editar/excluir"></a></td>
     </tr>
     <?php
 }
